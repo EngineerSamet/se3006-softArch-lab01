@@ -1,7 +1,6 @@
 package tr.edu.mu.se3006.business;
 import tr.edu.mu.se3006.persistence.ProductRepository;
 import tr.edu.mu.se3006.domain.Product;
-import tr.edu.mu.se3006.domain.Order;
 
 public class OrderService {
     private final ProductRepository productRepository;
@@ -27,8 +26,5 @@ public class OrderService {
 
         // 4: Save updated product
         productRepository.save(product);
-
-        Order order = new Order(productId, quantity);
-        System.out.println("✅ Order Confirmed! Order ID: " + order.getId() + ", Product: " + product.getName() + ", Quantity: " + quantity);
     }
 }

@@ -12,6 +12,7 @@ public class OrderController {
         System.out.println(">>> New Request: Product ID=" + productId + ", Quantity=" + quantity);
         try {
             orderService.placeOrder(productId, quantity);
+            System.out.println("✅ Order Confirmed! Product ID: " + productId + ", Quantity: " + quantity);
         } catch (Exception e) {
             System.out.println("❌ ERROR: " + e.getMessage());
         }

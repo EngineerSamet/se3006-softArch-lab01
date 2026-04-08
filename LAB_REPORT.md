@@ -74,8 +74,6 @@ public void placeOrder(Long productId, int quantity) {
     }
     product.setStock(product.getStock() - quantity);
     productRepository.save(product);
-    Order order = new Order(productId, quantity);
-    System.out.println("✅ Order Confirmed! Order ID: " + order.getId() + ", Product: " + product.getName() + ", Quantity: " + quantity);
 }
 ```
 
@@ -95,6 +93,7 @@ public void handleUserRequest(Long productId, int quantity) {
     System.out.println(">>> New Request: Product ID=" + productId + ", Quantity=" + quantity);
     try {
         orderService.placeOrder(productId, quantity);
+        System.out.println("✅ Order Confirmed! Product ID: " + productId + ", Quantity: " + quantity);
     } catch (Exception e) {
         System.out.println("❌ ERROR: " + e.getMessage());
     }
@@ -122,8 +121,8 @@ The system was tested with 4 scenarios:
 
 | # | Scenario | Product ID | Quantity | Expected Result | Actual Result |
 |---|----------|-----------|----------|-----------------|---------------|
-| 1 | Successful order | 1 (MacBook Pro) | 2 | ✅ Order Confirmed | ✅ Order Confirmed! Order ID: 1, Product: MacBook Pro, Quantity: 2 |
-| 2 | Successful order | 2 (Logitech Mouse) | 5 | ✅ Order Confirmed | ✅ Order Confirmed! Order ID: 2, Product: Logitech Mouse, Quantity: 5 |
+| 1 | Successful order | 1 (MacBook Pro) | 2 | ✅ Order Confirmed | ✅ Order Confirmed! Product ID: 1, Quantity: 2 |
+| 2 | Successful order | 2 (Logitech Mouse) | 5 | ✅ Order Confirmed | ✅ Order Confirmed! Product ID: 2, Quantity: 5 |
 | 3 | Insufficient stock | 1 (MacBook Pro, 3 left) | 10 | ❌ Error | ❌ ERROR: Insufficient stock! Requested: 10, Available: 3 |
 | 4 | Non-existent product | 99 | 1 | ❌ Error | ❌ ERROR: Product not found with ID: 99 |
 
@@ -133,9 +132,9 @@ The system was tested with 4 scenarios:
 
 --- Test Scenarios ---
 >>> New Request: Product ID=1, Quantity=2
-✅ Order Confirmed! Order ID: 1, Product: MacBook Pro, Quantity: 2
+✅ Order Confirmed! Product ID: 1, Quantity: 2
 >>> New Request: Product ID=2, Quantity=5
-✅ Order Confirmed! Order ID: 2, Product: Logitech Mouse, Quantity: 5
+✅ Order Confirmed! Product ID: 2, Quantity: 5
 >>> New Request: Product ID=1, Quantity=10
 ❌ ERROR: Insufficient stock! Requested: 10, Available: 3
 >>> New Request: Product ID=99, Quantity=1
